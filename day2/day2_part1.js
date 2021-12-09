@@ -32,11 +32,25 @@ const text = fs.readFileSync("./input.txt").toString('utf-8');
 const moveDataArray = text.split("\n");
 
 moveCalc = (moves) => {
+  let horizontal = 0;
+  let depth = 0;
+
   for( let i = 0; i < moves.length; i++ ){
-    console.log(moves[i]);
+    let currentMove = moves[i].split(" ")
+    console.log(currentMove)
+    if( currentMove[0].includes("forward") ){
+      horizontal += +currentMove[1];
+    } else if( currentMove[0].includes("down") ) {
+      depth += +currentMove[1];
+    } else if( currentMove[0].includes("up") ){
+      depth -= +currentMove[1];
+    } else {
+
+    }
   }
+  return horizontal * depth;
 }
 
 testMoves = ["forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2"];
 
-console.log(moveCalc(testMoves));
+console.log(moveCalc(moveDataArray));
