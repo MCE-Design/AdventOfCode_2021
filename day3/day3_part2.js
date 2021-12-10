@@ -26,3 +26,23 @@
 // Finally, to find the life support rating, multiply the oxygen generator rating (23) by the CO2 scrubber rating (10) to get 230.
 
 // Use the binary numbers in your diagnostic report to calculate the oxygen generator rating and CO2 scrubber rating, then multiply them together. What is the life support rating of the submarine? (Be sure to represent your answer in decimal, not binary.)
+
+const fs = require("fs");
+const text = fs.readFileSync("./input.txt").toString('utf-8');
+const dataArray = text.split("\n");
+
+airSupply = (lifeSupportData) => {
+  filteredRA = [];
+
+  for( let i = 0; i < lifeSupportData[0].length; i++ ){
+
+    for( let j = 0; j < lifeSupportData.length; j++ ){
+
+    }
+  }
+
+}
+
+testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
+
+console.log(airSupply());
