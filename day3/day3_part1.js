@@ -29,3 +29,45 @@
 // The epsilon rate is calculated in a similar way; rather than use the most common bit, the least common bit from each position is used. So, the epsilon rate is 01001, or 9 in decimal. Multiplying the gamma rate (22) by the epsilon rate (9) produces the power consumption, 198.
 
 // Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. What is the power consumption of the submarine? (Be sure to represent your answer in decimal, not binary.)
+
+const fs = require("fs");
+const text = fs.readFileSync("./input.txt").toString('utf-8');
+const powerDataArray = text.split("\n");
+
+binaryDiagnostic = (binaryArray) => {
+  let finalArray = [];
+  let flipArray = [];
+  let digit = 0;
+  let digitFlip = 0;
+  for( let i = 0; i < binaryArray[0].length; i++ ){
+    let count = 0;
+    for( let j = 0; j < binaryArray.length - 1; j++ ){
+      // console.log(i, "Number", binaryArray[j]);
+      // console.log("-", j.toString() + "th","Num:", binaryArray[j][i])
+      if( binaryArray[j][i] === "1"){
+        count++;
+      }
+      console.log("Count", count);
+    }
+    if(count / (binaryArray.length - 1) >= 0.5){
+      digit = 1;
+      digitFlip = 0;
+    } else {
+      digit = 0;
+      digitFlip = 1;
+    }
+    finalArray.push(digit);
+    flipArray.push(digitFlip);
+  }
+  let binaryString = finalArray.join("");
+  let binaryStringFlip = flipArray.join("");
+  // console.log(binaryString);
+  let gamma = parseInt(binaryString, 2);
+  console.log("Gamma", gamma);
+  let epsilon = parseInt(binaryStringFlip, 2); // This inverts the binary number
+  console.log("Epsilon", epsilon)
+  return gamma * epsilon;
+}
+
+testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
+console.log(binaryDiagnostic(powerDataArray));
