@@ -32,12 +32,18 @@ const text = fs.readFileSync("./input.txt").toString('utf-8');
 const dataArray = text.split("\n");
 
 airSupply = (lifeSupportData) => {
-  filteredRA = [];
+  let filteredRA = [];
+  let count = 0;
+  let digit = 0;
 
   for( let i = 0; i < lifeSupportData[0].length; i++ ){
-
     for( let j = 0; j < lifeSupportData.length; j++ ){
-
+      if( binaryArray[j][i] === "1"){
+        count++;
+      }
+    }
+    if( count / lifeSupportData.length > 0.5){
+      digit = "1"
     }
   }
 
@@ -45,4 +51,4 @@ airSupply = (lifeSupportData) => {
 
 testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
 
-console.log(airSupply());
+console.log(airSupply(testData));
