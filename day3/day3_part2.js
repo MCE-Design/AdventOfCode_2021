@@ -33,17 +33,19 @@ const dataArray = text.split("\n");
 
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
-  let count = 0;
   let digit = 0;
 
   for( let i = 0; i < lifeSupportData[0].length; i++ ){
+    let count = 0;
     for( let j = 0; j < lifeSupportData.length; j++ ){
-      if( binaryArray[j][i] === "1"){
+      if( lifeSupportData[j][i] === "1"){
         count++;
       }
     }
-    if( count / lifeSupportData.length > 0.5){
-      digit = "1"
+    if( count / lifeSupportData.length >= 0.5){
+      digit = "1";
+    } else if ( count / lifeSupportData.length < 0.5){
+      digit = "0";
     }
   }
 
