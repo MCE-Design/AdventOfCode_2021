@@ -31,6 +31,8 @@ const fs = require("fs");
 const text = fs.readFileSync("./input.txt").toString('utf-8');
 const dataArray = text.split("\n");
 
+// might need to be a single-linked list as that should achieve the same results, but with lower time complexity
+
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
   let digit = 0;
@@ -47,8 +49,10 @@ airSupply = (lifeSupportData) => {
     } else if ( count / lifeSupportData.length < 0.5){
       digit = "0";
     }
-  }
+    if( lifeSupportData[j][i] === digit ){
 
+    }
+  }
 }
 
 testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
