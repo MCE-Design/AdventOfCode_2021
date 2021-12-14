@@ -53,6 +53,8 @@ class LinkedList {
     newNode.next = this.head;
     this.head = newNode;
     this.length++;
+
+    return this;
   }
 
   addToTail(val) {
@@ -68,12 +70,62 @@ class LinkedList {
       current = current.next;
     }
     current.next = newNode;
+
+    return this;
   }
+
+  removeFromHead() {
+    if(!this.head) return;
+
+    const oldHead = this.head;
+    this.head = oldHead.next;
+
+    this.length--;
+
+    return oldHead;
+  }
+
+  removeFromTail() {
+    if(!this.head) return;
+
+    let current = this.head;
+    let previous;
+
+    while( current.next ){
+      previous = current;
+      current = current.next;
+    }
+    if(!previous) this.head = null;
+    else previous.next = null;
+
+    this.length--;
+
+    return current;
+  }
+
+  peekAtHead() {
+    if(!this.head) return;
+    return this.head.value;
+  }
+
+  print() {
+    if(!this.head) return;
+
+    let current = this.head;
+    while( current ){
+      console.log(current.value);
+      current = current.next;
+    }
+  }
+
 }
 
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
   let digit = 0;
+
+  lsDataList = new LinkedList();
+
 
   for( let i = 0; i < lifeSupportData[0].length; i++ ){
     let count = 0;
