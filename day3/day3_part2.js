@@ -33,6 +33,44 @@ const dataArray = text.split("\n");
 
 // might need to be a single-linked list as that should achieve the same results, but with lower time complexity
 
+
+class LinkedListNode {
+  constructor(val) {
+    this.value = val;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.length = 0;
+  }
+
+  addToHead(val) {
+    const newNode = new LinkedListNode(val);
+
+    newNode.next = this.head;
+    this.head = newNode;
+    this.length++;
+  }
+
+  addToTail(val) {
+    let newNode = new LinkedListNode(val);
+
+    this.length++;
+    if(!this.head){
+      this.head = newNode;
+      return this;
+    }
+    let current = this.head;
+    while (current.next){
+      current = current.next;
+    }
+    current.next = newNode;
+  }
+}
+
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
   let digit = 0;
