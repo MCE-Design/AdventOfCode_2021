@@ -118,6 +118,23 @@ class LinkedList {
     }
   }
 
+  count(digitPlace) {
+    let count = 0;
+    if (!this.head) return;
+
+    let current = this.head;
+    while (current) {
+      console.log(current.value);
+      console.log(current.value[digitPlace]);
+      if (current.value[digitPlace] === "1"){
+        count++;
+      };
+      current = current.next;
+    }
+    console.log("THE COUNT", count, "for digit", digitPlace + 1)
+    return count;
+  }
+
   searchAndDestroy(digitPlace, digitValue) {
     if (!this.head) return;
 
@@ -188,8 +205,10 @@ airSupply = (lifeSupportData) => {
   console.log("digit", digit)
   lsDataList.searchAndDestroy(0, digit)
   lsDataList.print();
-  for (let i = 1; i < lsDataList.length; i++){
 
+  console.log("TESTING COUNTING")
+  for (let i = 1; i < lifeSupportData[0].length; i++){
+    lsDataList.count(i);
   }
 }
 
