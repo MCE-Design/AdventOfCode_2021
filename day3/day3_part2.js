@@ -163,6 +163,10 @@ class LinkedList {
 
 }
 
+countInc = (numberIdx, digitPlace) => {
+
+}
+
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
   let count = 0;
@@ -178,6 +182,7 @@ airSupply = (lifeSupportData) => {
       count++;
     }
   }
+
   if (count / lifeSupportData.length >= 0.5) {
     digit = "1";
   } else if (count / lifeSupportData.length < 0.5) {
