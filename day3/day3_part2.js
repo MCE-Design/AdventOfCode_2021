@@ -61,12 +61,12 @@ class LinkedList {
     let newNode = new LinkedListNode(val);
 
     this.length++;
-    if(!this.head){
+    if (!this.head) {
       this.head = newNode;
       return this;
     }
     let current = this.head;
-    while (current.next){
+    while (current.next) {
       current = current.next;
     }
     current.next = newNode;
@@ -75,7 +75,7 @@ class LinkedList {
   }
 
   removeFromHead() {
-    if(!this.head) return;
+    if (!this.head) return;
 
     const oldHead = this.head;
     this.head = oldHead.next;
@@ -86,16 +86,16 @@ class LinkedList {
   }
 
   removeFromTail() {
-    if(!this.head) return;
+    if (!this.head) return;
 
     let current = this.head;
     let previous;
 
-    while( current.next ){
+    while (current.next) {
       previous = current;
       current = current.next;
     }
-    if(!previous) this.head = null;
+    if (!previous) this.head = null;
     else previous.next = null;
 
     this.length--;
@@ -104,16 +104,30 @@ class LinkedList {
   }
 
   peekAtHead() {
-    if(!this.head) return;
+    if (!this.head) return;
     return this.head.value;
   }
 
   print() {
-    if(!this.head) return;
+    if (!this.head) return;
 
     let current = this.head;
-    while( current ){
+    while (current) {
       console.log(current.value);
+      current = current.next;
+    }
+  }
+
+  searchAndDestroy(digitPlace, digitValue) {
+    if (!this.head) return;
+
+    let current = this.head;
+    while (current) {
+      console.log(current.value, "includes digit?", current.value[digitPlace] === digitValue);
+      if(current.value[digitPlace] !== digitValue){
+
+        this.length--;
+      }
       current = current.next;
     }
   }
@@ -122,27 +136,43 @@ class LinkedList {
 
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
+  let count = 0;
   let digit = 0;
 
+  // Make the new list
   lsDataList = new LinkedList();
 
-
-  for( let i = 0; i < lifeSupportData[0].length; i++ ){
-    let count = 0;
-    for( let j = 0; j < lifeSupportData.length; j++ ){
-      if( lifeSupportData[j][i] === "1"){
-        count++;
-      }
-    }
-    if( count / lifeSupportData.length >= 0.5){
-      digit = "1";
-    } else if ( count / lifeSupportData.length < 0.5){
-      digit = "0";
-    }
-    if( lifeSupportData[j][i] === digit ){
-
+  // Add data to lilst
+  for (let i = 0; i < lifeSupportData.length; i++) {
+    lsDataList.addToHead(lifeSupportData[i]);
+    if (lifeSupportData[i][0] === "1") {
+      count++;
     }
   }
+  if (count / lifeSupportData.length >= 0.5) {
+    digit = "1";
+  } else if (count / lifeSupportData.length < 0.5) {
+    digit = "0";
+  }
+  console.log(count)
+  console.log("digit", digit)
+  lsDataList.searchAndDestroy(0, digit)
+  // for( let i = 0; i < lifeSupportData[0].length; i++ ){
+  //   let count = 0;
+  //   for( let j = 0; j < lifeSupportData.length; j++ ){
+  //     if( lifeSupportData[j][i] === "1"){
+  //       count++;
+  //     }
+  //   }
+  //   if( count / lifeSupportData.length >= 0.5){
+  //     digit = "1";
+  //   } else if ( count / lifeSupportData.length < 0.5){
+  //     digit = "0";
+  //   }
+  //   if( lifeSupportData[j][i] === digit ){
+
+  //   }
+  // }
 }
 
 testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
