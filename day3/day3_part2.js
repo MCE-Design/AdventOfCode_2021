@@ -131,7 +131,6 @@ class LinkedList {
       };
       current = current.next;
     }
-    console.log("THE COUNT", count, "for digit", digitPlace + 1)
     return count;
   }
 
@@ -141,7 +140,8 @@ class LinkedList {
     let current = this.head;
     let previous = null;
 
-    while (current != null && current.value[digitPlace] !== digitValue ) {
+    console.log("Digit Place---->", digitPlace + 1, "Digit Value", digitValue)
+    while (current !== null && +current.value[digitPlace] !== +digitValue ) {
       console.log(this.head)
       this.head = current.next;
       current = this.head;
@@ -152,8 +152,8 @@ class LinkedList {
       console.log("               ")
     }
     while (current != null) {
-      console.log(current.value, "includes digit?", current.value[digitPlace] === digitValue);
-      if(current.value[digitPlace] !== digitValue){
+      console.log(current.value, "includes digit?", +current.value[digitPlace] === +digitValue);
+      if(+current.value[digitPlace] !== +digitValue){
         console.log("previous next", previous.next);
         console.log("current next", current.next);
         if(current.next !== null){
@@ -166,6 +166,7 @@ class LinkedList {
           previous.next = null;
         }
         this.length--;
+        console.log("LENGTH", this.length)
       }
       console.log("previous ||", previous)
       console.log("current ||", current)
@@ -180,10 +181,11 @@ class LinkedList {
 
 }
 
-airSupply = (lifeSupportData) => {
-  let filteredRA = [];
+
+oxyAndCO2 = (lifeSupportData, type) => {
   let count = 0;
   let digit = 0;
+  let airsupplyStatus = 0;
 
   // Make the new list
   lsDataList = new LinkedList();
@@ -196,10 +198,19 @@ airSupply = (lifeSupportData) => {
     }
   }
 
-  if (count / lifeSupportData.length >= 0.5) {
-    digit = "1";
-  } else if (count / lifeSupportData.length < 0.5) {
-    digit = "0";
+  console.log("TYPE", type)
+  if (type === "CO2"){
+    if (count / lifeSupportData.length < 0.5) {
+      digit = "1";
+    } else if (count / lifeSupportData.length >= 0.5) {
+      digit = "0";
+    }
+  } else {
+    if (count / lifeSupportData.length >= 0.5) {
+      digit = "1";
+    } else if (count / lifeSupportData.length < 0.5) {
+      digit = "0";
+    }
   }
   console.log(count)
   console.log("digit", digit)
@@ -208,10 +219,48 @@ airSupply = (lifeSupportData) => {
 
   console.log("TESTING COUNTING")
   for (let i = 1; i < lifeSupportData[0].length; i++){
-    lsDataList.count(i);
+    count = lsDataList.count(i);
+    console.log("THE COUNT", count, "for digit", i + 1)
+
+    // if (count / lsDataList.length >= 0.5) {
+    //   digit = "1";
+    // } else if (count / lsDataList.length < 0.5) {
+    //   digit = "0";
+    // }
+
+    if (type === "CO2"){
+      if (count / lsDataList.length < 0.5) {
+        digit = "1";
+      } else if (count / lsDataList.length >= 0.5) {
+        digit = "0";
+      }
+    } else {
+      if (count / lsDataList.length >= 0.5) {
+        digit = "1";
+      } else if (count / lsDataList.length < 0.5) {
+        digit = "0";
+      }
+    }
+
+    lsDataList.searchAndDestroy(i, digit)
+    if (lsDataList.length === 1) {
+      console.log("System Status", lsDataList.peekAtHead())
+      airsupplyStatus = parseInt(lsDataList.peekAtHead(), 2);
+      return airsupplyStatus;
+    }
   }
+  console.log("System Status", lsDataList.peekAtHead())
+  airsupplyStatus = parseInt(lsDataList.peekAtHead(), 2);
+  return airsupplyStatus;
+}
+
+airSupply = (dataFile) => {
+  let oxy = oxyAndCO2(dataFile, "oxy");
+  let co2 = oxyAndCO2(dataFile, "CO2");
+
+  return oxy * co2;
 }
 
 testData = ["00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
 
-console.log(airSupply(testData));
+console.log(airSupply(dataArray));
