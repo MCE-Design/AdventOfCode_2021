@@ -163,10 +163,6 @@ class LinkedList {
 
 }
 
-countInc = (numberIdx, digitPlace) => {
-
-}
-
 airSupply = (lifeSupportData) => {
   let filteredRA = [];
   let count = 0;
