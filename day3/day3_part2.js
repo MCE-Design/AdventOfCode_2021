@@ -124,23 +124,40 @@ class LinkedList {
     let current = this.head;
     let previous = null;
 
-    if (current != null && current.value[digitPlace] !== digitValue ) {
+    while (current != null && current.value[digitPlace] !== digitValue ) {
+      console.log(this.head)
       this.head = current.next;
+      current = this.head;
+      this.length--;
+      console.log("^             ^")
+      console.log("|             |")
+      console.log("Head is excised")
+      console.log("               ")
     }
     while (current != null) {
       console.log(current.value, "includes digit?", current.value[digitPlace] === digitValue);
       if(current.value[digitPlace] !== digitValue){
-        console.log("prev next", previous.next);
+        console.log("previous next", previous.next);
         console.log("current next", current.next);
         if(current.next !== null){
+          console.log("prev.next = current.next")
           previous.next = current.next;
+          console.log("new previous.next", previous.next)
+          current = previous;
         } else {
+          console.log("prev.next = null")
           previous.next = null;
         }
         this.length--;
       }
+      console.log("previous ||", previous)
+      console.log("current ||", current)
       previous = current;
+      console.log("current next ||", current.next)
       current = current.next;
+
+      console.log("new previous || ", previous)
+      console.log("----------------")
     }
   }
 
@@ -154,7 +171,7 @@ airSupply = (lifeSupportData) => {
   // Make the new list
   lsDataList = new LinkedList();
 
-  // Add data to lilst
+  // Add data to list
   for (let i = 0; i < lifeSupportData.length; i++) {
     lsDataList.addToHead(lifeSupportData[i]);
     if (lifeSupportData[i][0] === "1") {
@@ -170,6 +187,9 @@ airSupply = (lifeSupportData) => {
   console.log("digit", digit)
   lsDataList.searchAndDestroy(0, digit)
   lsDataList.print();
+  for (let i = 1; i < lsDataList.length; i++){
+
+  }
   // for( let i = 0; i < lifeSupportData[0].length; i++ ){
   //   let count = 0;
   //   for( let j = 0; j < lifeSupportData.length; j++ ){
