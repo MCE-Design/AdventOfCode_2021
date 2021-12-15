@@ -122,12 +122,24 @@ class LinkedList {
     if (!this.head) return;
 
     let current = this.head;
-    while (current) {
+    let previous = null;
+
+    if (current != null && current.value[digitPlace] !== digitValue ) {
+      this.head = current.next;
+    }
+    while (current != null) {
       console.log(current.value, "includes digit?", current.value[digitPlace] === digitValue);
       if(current.value[digitPlace] !== digitValue){
-
+        console.log("prev next", previous.next);
+        console.log("current next", current.next);
+        if(current.next !== null){
+          previous.next = current.next;
+        } else {
+          previous.next = null;
+        }
         this.length--;
       }
+      previous = current;
       current = current.next;
     }
   }
@@ -157,6 +169,7 @@ airSupply = (lifeSupportData) => {
   console.log(count)
   console.log("digit", digit)
   lsDataList.searchAndDestroy(0, digit)
+  lsDataList.print();
   // for( let i = 0; i < lifeSupportData[0].length; i++ ){
   //   let count = 0;
   //   for( let j = 0; j < lifeSupportData.length; j++ ){
